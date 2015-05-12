@@ -1,0 +1,41 @@
+;;util.lisp
+
+(in-package #:canvas)
+
+;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;;for debug 
+(setf *show-lisp-errors-p* T)
+(setf *show-lisp-backtraces-p* T)
+
+
+
+;;;;;;;;;;;;start server
+(defvar *port* 8080)
+
+(defun start-canvas ()
+	(hunchentoot:start 
+		(setf *server* (make-instance 'hunchentoot:easy-acceptor
+                                    :name 'server
+                                    :address "localhost"
+                                    :port *port*))))
+
+(defun stop-canvas()
+	(hunchentoot:stop *server*))
+
+(defun restart-canvas()
+	(stop-canvas)
+	(ql:quickload "canvas")
+	(start-canvas))
+
+;;;;start page on loaded
+(start-canvas)
+
+
+
+
+
+	
+	
